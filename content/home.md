@@ -1,5 +1,0 @@
-# Home
-
-Welcome.
-## Section
-Text
