@@ -1,5 +1,9 @@
 # Home
 
-Welcome
-## Section
+Intro
+
+## Section A
+Text
+
+## Section B
 Text
