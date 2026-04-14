@@ -1,0 +1,21 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #111;
+  color: #eee;
+}
+
+.header {
+  padding: 1rem;
+  background: #1a1a1a;
+}
+
+nav a {
+  margin-right: 1rem;
+  color: #0af;
+  text-decoration: none;
+}
+
+main {
+  padding: 2rem;
+}
