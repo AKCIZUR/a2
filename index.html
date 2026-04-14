@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <base href="./">
-  <title>AVdocs final</title>
-  <link rel="stylesheet" href="./assets/css/styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AVdocs GitBook UI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<style>
+body{margin:0;font-family:Inter;background:#1a1d23;color:#e2e5ef}
+.topbar{height:50px;background:#151820;border-bottom:1px solid #2a2f3d;display:flex;align-items:center;padding:0 20px}
+.layout{display:flex}
+.sidebar{width:260px;background:#151820;height:calc(100vh - 50px);overflow:auto;padding:10px}
+.sidebar a{display:block;padding:6px 10px;color:#9aa0b5;text-decoration:none}
+.sidebar a:hover{background:#1e2230}
+.main{flex:1;padding:40px}
+.toc{width:220px;background:#151820;padding:20px}
+h1{font-size:28px}
+</style>
 </head>
 <body>
-  <div id="app"></div>
-  <script type="module" src="./assets/js/app.js"></script>
+
+<div class="topbar">AVdocs</div>
+
+<div class="layout">
+<div class="sidebar" id="nav"></div>
+<div class="main"><div id="content">Loading...</div></div>
+<div class="toc" id="toc"></div>
+</div>
+
+<script type="module" src="./assets/js/app.js"></script>
 </body>
 </html>

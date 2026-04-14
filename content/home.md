@@ -1,3 +1,3 @@
 # Home
 
-Vítej v AVdocs.
+Obsah stránky.
