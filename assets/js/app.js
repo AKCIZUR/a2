@@ -1,58 +1,50 @@
-/**
- * Main Application Entry Point
- * Initializes router, components, and global state
- */
-import { router } from './core/router.js';
-import { store } from './core/store.js';
-import { Navbar } from './components/navbar.js';
-import { Footer } from './components/footer.js';
+import { loadContentIndex, loadMarkdown } from './core/contentLoader.js';
+import { registerRoute, startRouter } from './core/router.js';
 
-// Initialize global components
-const navbar = new Navbar().mount();
-const footer = new Footer().mount();
+const app = document.getElementById('app');
 
-// Configure routes with lazy loading
-router
-  .on('/', async () => {
-    const { HomePage } = await import('./pages/home.js');
-    new HomePage().mount();
-  })
-  .on('/about', async () => {
-    const { AboutPage } = await import('./pages/about.js');
-    new AboutPage().mount();
+function renderSidebar(tree) {
+  function renderItems(items) {
+    return `<ul>${items.map(item => {
+      if (item.children) {
+        return `<li><details><summary>${item.title}</summary>${renderItems(item.children)}</details></li>`;
+      }
+      return `<li><a href="#${item.path}">${item.title}</a></li>`;
+    }).join('')}</ul>`;
+  }
+  return renderItems(tree);
+}
+
+function flatten(tree) {
+  let result = [];
+  for (const item of tree) {
+    if (item.file) result.push(item);
+    if (item.children) result = result.concat(flatten(item.children));
+  }
+  return result;
+}
+
+async function init() {
+  const tree = await loadContentIndex();
+
+  app.innerHTML = `
+    <aside class="sidebar"><div id="nav"></div></aside>
+    <main class="content"><div id="content">Loading...</div></main>
+  `;
+
+  document.getElementById("nav").innerHTML = renderSidebar(tree);
+
+  const flat = flatten(tree);
+
+  flat.forEach(page => {
+    registerRoute(page.path, async () => {
+      const md = await loadMarkdown(page.file);
+      document.getElementById("content").innerHTML = marked.parse(md);
+      window.scrollTo(0,0);
+    });
   });
 
-// Global navigation hooks
-router.beforeEach((to, from) => {
-  // Show loading state
-  const content = document.getElementById('content');
-  if (content && to !== from) {
-    content.innerHTML = '<div class="loading"></div>';
-  }
-  return true;
-});
+  startRouter();
+}
 
-router.afterEach((to) => {
-  // Update document title based on route
-  const titles = {
-    '/': 'Úvod | ModularJS',
-    '/about': 'O projektu | ModularJS',
-  };
-  document.title = titles[to] || 'ModularJS';
-  
-  // Scroll to top on navigation
-  window.scrollTo(0, 0);
-});
-
-// Start the router
-router.start();
-
-// Debug info in console
-console.log(
-  '%c🚀 ModularJS',
-  'color: #3b82f6; font-size: 16px; font-weight: bold;',
-  '\nNativní ES Modules • Zero Build • Pure JavaScript'
-);
-
-// Export for debugging
-window.__app = { router, store, navbar, footer };
+init();
