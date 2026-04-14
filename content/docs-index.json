@@ -1,0 +1,6 @@
+[
+{"title":"Home","path":"/","file":"home.md"},
+{"title":"Guide","path":"/guide","children":[
+ {"title":"Intro","path":"/guide/intro","file":"guide/intro.md"}
+]}
+]

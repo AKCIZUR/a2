@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AVdocs Ultimate</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+<style>
+:root{
+--bg:#1a1d23;--sidebar:#151820;--border:#2a2f3d;
+--text:#e2e5ef;--muted:#8b92a8;--accent:#4b6ef5;
+}
+body{margin:0;font-family:Inter;background:var(--bg);color:var(--text)}
+.topbar{height:52px;background:var(--sidebar);display:flex;align-items:center;padding:0 20px;border-bottom:1px solid var(--border)}
+.search{margin-left:auto;background:#0f1117;padding:6px 10px;border-radius:6px;cursor:pointer}
+.layout{display:flex}
+.sidebar{width:260px;background:var(--sidebar);height:calc(100vh - 52px);overflow:auto}
+.sidebar a{display:block;padding:6px 14px;color:var(--muted);text-decoration:none}
+.sidebar a.active{background:#252a3a;color:var(--accent)}
+.main{flex:1;padding:40px}
+.toc{width:220px;background:var(--sidebar);padding:20px;position:sticky;top:52px;height:calc(100vh - 52px);overflow:auto}
+.search-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center}
+.search-box{background:#151820;padding:20px;border-radius:8px;width:400px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  AVdocs
+  <div class="search" id="openSearch">Search (Ctrl+K)</div>
+</div>
+
+<div class="layout">
+<div class="sidebar" id="nav"></div>
+<div class="main"><div id="content">Loading...</div></div>
+<div class="toc" id="toc"></div>
+</div>
+
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <input id="searchInput" placeholder="Search..." style="width:100%;padding:8px"/>
+    <div id="results"></div>
+  </div>
+</div>
+
+<script type="module" src="./assets/js/app.js"></script>
+</body>
+</html>
